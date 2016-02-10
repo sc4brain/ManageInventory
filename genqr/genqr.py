@@ -21,8 +21,9 @@ ws = wb.worksheets[5]
 for i in range(2,10):
     
     code_filename =  ws['B'+str(i)].value.replace(' ', '') + '.png'
-    code_text = u'"KanzakiLabIventory", ' + '"' + ws['B'+str(i)].value + '", ' + '"' + ws['C'+str(i)].value + "\""
-    print code_text
-    img = qrcode.make(urllib.quote(code_text.encode('utf-8')))
+    code_text = u'"Kanzaki", ' + '"' + ws['B'+str(i)].value + '", ' + '"' + ws['C'+str(i)].value + "\""
+    code_decoded = urllib.quote(code_text.encode('utf-8'))
+    print(code_text + ' -> ' + code_decoded)
+    img = qrcode.make(code_decoded)
     img.save(output_dir + code_filename)
 
