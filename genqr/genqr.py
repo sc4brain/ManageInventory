@@ -48,13 +48,14 @@ def genList ():
 
     for i in range(2, 912):
         record = [ws['B'+str(i)].value, ws['C'+str(i)].value, ws['J'+str(i)].value, 
-                 ws['K'+str(i)].value, ws['A'+str(i)].value, ws['Y'+str(i)].value] 
-                 #str(ws['AA'+str(i)].value) + str(ws['AB'+str(i)].value) + str(ws['AC'+str(i)].value) + str(ws['AG'+str(i)].value)]
+                 ws['K'+str(i)].value, ws['A'+str(i)].value, ws['Y'+str(i)].value,
+                 ws['AA'+str(i)].value]
+                 #ws['AA'+str(i)].value + ws['AB'+str(i)].value + ws['AC'+str(i)].value + ws['AG'+str(i)].value]
         record[0] = record[0].replace(" ", "")
         record[1] = record[1].replace("'", "")
         print record
-        cur.execute("INSERT INTO iventory(number, name, place, place_detail, team, stored_date, checked) VALUES('%s', '%s', '%s', '%s', '%s', '%s', %d)" 
-        % (record[0], record[1], record[2], record[3], record[4], record[5], 0))
+        cur.execute("INSERT INTO iventory(number, name, place, place_detail, team, stored_date, comment, checked) VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', %d)" 
+        % (record[0], record[1], record[2], record[3], record[4], record[5], record[6], 0))
 
     
     cur.execute("""SELECT * FROM iventory;""")
