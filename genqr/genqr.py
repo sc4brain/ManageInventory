@@ -20,10 +20,11 @@ database_filename = '/home/nebula/work/iventory_data/iventory20160209.sqlite3'
 def genQrcode():
     wb = opx.load_workbook(filename=input_filename)
     ws = wb.worksheets[5]
-    for i in range(2,10):
+    for i in range(2,100):
         
         code_filename =  ws['B'+str(i)].value.replace(' ', '') + '.png'
-        code_text = u'"Kanzaki", ' + '"' + ws['B'+str(i)].value + '", ' + '"' + ws['C'+str(i)].value + "\""
+        #code_text = u'"Kanzaki", ' + '"' + ws['B'+str(i)].value + '", ' + '"' + ws['C'+str(i)].value + "\""
+        code_text = ws['B'+str(i)].value.replace(' ', '')
         code_decoded = urllib.quote(code_text.encode('utf-8'))
         print(code_text + ' -> ' + code_decoded)
         img = qrcode.make(code_decoded)
@@ -34,7 +35,7 @@ def renewTable ():
     cur = conn.cursor()
 
     cur.execute("DROP TABLE iventory")    
-    cur.execute("create table iventory(id integer primary key autoincrement, number text, name text, place text, place_detail text)")
+    cur.execute("create table iventory(id integer primary key autoincrement, number text, name text, place text, place_detail text, checked bool)")
     conn.commit()
     conn.close()
 
@@ -48,13 +49,14 @@ def genList ():
     for i in range(2, 100):
         record = [ws['B'+str(i)].value, ws['C'+str(i)].value, ws['J'+str(i)].value, ws['K'+str(i)].value]
         record[0] = record[0].replace("'", "")
+        record[0] = record[0].replace(" ", "")
         record[1] = record[1].replace("'", "")
         record[2] = record[2].replace("'", "")
         '''
         record[3] = record[3].replace("'", "")
         '''        
         print record
-        cur.execute("INSERT INTO iventory(number, name, place, place_detail) VALUES('%s', '%s', '%s', '%s')" % (record[0], record[1], record[2], record[3]))
+        cur.execute("INSERT INTO iventory(number, name, place, place_detail, checked) VALUES('%s', '%s', '%s', '%s', %d)" % (record[0], record[1], record[2], record[3], 0))
 
     
     cur.execute("""SELECT * FROM iventory;""")
