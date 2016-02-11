@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URLEncoder;
 import java.net.URLDecoder;
 import java.net.URL;
 import java.net.MalformedURLException;
@@ -57,10 +58,21 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                String place = new String("Room356");
+                String name = new String("Bombicol");
+                String send_string = new String();
+                try {
+                    send_string = "?place=" + URLEncoder.encode(place, "UTF8") + "&name=" + URLEncoder.encode(name, "UTF8");
+                    Log.d("TAG", send_string);
+                }catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
                 TextView textViewSendResult = (TextView) findViewById(R.id.textViewSendResult);
                 try {
-                    URL url = new URL("http://192.168.0.249/iventory/index.php");
+                    URL url = new URL("http://192.168.0.249/iventory/index.php"+send_string);
                     HttpURLConnection con = (HttpURLConnection)url.openConnection();
+                    con.setRequestMethod("GET");
                     String str = InputStreamToString(con.getInputStream());
                     con.disconnect();
                     Log.d("TAG", str);
