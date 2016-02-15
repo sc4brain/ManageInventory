@@ -69,8 +69,9 @@ if (isset($iv_number) and isset($iv_checked) and isset($iv_user)){
 
 <body>
 <h1>Welcome to Iventory Server</h1>
-<a href="./qrreader.apk">Android App</a>
-
+<div class="getapp">
+<a class="getapp" href="./qrreader.apk">Get Android App!</a>
+</div>
 <div>
 <form action="./index.php" method="get">
   User : <input class="text" type="text" name="user" size="10" maxlength="8"/>
