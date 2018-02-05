@@ -2,6 +2,11 @@
 
 This program was developed to manage laboratory's stocks.
 
+## Important Notice
+
+This repository is old version.  
+Please see https://github.com/sc4brain/kanzaki-local-web/tree/master/bond/inventory .
+
 ## Dependence
 
 * Server App : PHP5, Sqlite3
